@@ -34,7 +34,7 @@ const equationSolver = (numbers,textSigns) => {
  - n: amount of potential places for math signs 
 */
 const getSign = (signs, n) => {
-    if(n === 0) {
+    if(n === 1) {
         const {equation, result} = calculateEquation(numbers, signs)
         checkResult({equation, result,solution, name: 'recursive'});
         return result
@@ -42,4 +42,4 @@ const getSign = (signs, n) => {
     return mathSigns.map(a => getSign([...signs, a], n-1))
 }
 
-getSign([], numbers.length-1)
+getSign([], numbers.length)
