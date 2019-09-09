@@ -3,12 +3,12 @@
 
 /// Input - given numbers and potential math signs
 const mathSigns = ['+', '-', '/', '*']
-const numbers = [1,2,3,4]
+const numbers = [1,2,3,4,5]
 const solution = 15
 
 //helpers
-const checkResult = ({equation, result, solution}) => {
-    if(result === solution) console.log('Eq is: ', equation, ' === ', solution, ' - check: ', result === solution)
+const checkResult = ({equation, result, solution, name}) => {
+    if(result === solution) console.log(name, ' - Eq is: ', equation, ' === ', solution, ' - check: ', result === solution)
 }
 
 const calculateEquation = (numbers, signs) => {
@@ -27,21 +27,6 @@ const equationSolver = (numbers,textSigns) => {
     }
 }
 
-/*
-###### Recursive Approach. 
-###############################
-number of for loops is the number of potential inserts of math signs.
-*/
-for(var i=0; i<numbers.length; ++i){
-    for(var j=0; j<numbers.length; ++j){
-        for(var k=0; k<numbers.length; ++k){
-                const signs = [mathSigns[i], mathSigns[j], mathSigns[k]]
-                const {equation, result} = calculateEquation(numbers, signs)
-                checkResult({equation, result,solution});
-        }
-    }
-}
-
 /* 
 ###### Recursive Approach. 
 ###############################
@@ -51,11 +36,10 @@ for(var i=0; i<numbers.length; ++i){
 const getSign = (signs, n) => {
     if(n === 0) {
         const {equation, result} = calculateEquation(numbers, signs)
-        checkResult({equation, result,solution});
+        checkResult({equation, result,solution, name: 'recursive'});
         return result
     }
     return mathSigns.map(a => getSign([...signs, a], n-1))
 }
 
 getSign([], numbers.length-1)
-
